@@ -1,3 +1,4 @@
+#CHANGES K LIYAY LMK WHAT SUGGESTIONS YOU GUYS HAVE YA COLOR SCHEME KO AUR BLEND KRNA CHAHTAY ABHI PHELE INTEGRATE KRLO
 import tkinter as tk
 from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
@@ -81,3 +82,4 @@ def main():
     r.mainloop()
 
 main()
+
