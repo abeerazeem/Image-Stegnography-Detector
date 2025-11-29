@@ -1,11 +1,37 @@
-#CHANGES K LIYAY LMK WHAT SUGGESTIONS YOU GUYS HAVE YA COLOR SCHEME KO AUR BLEND KRNA CHAHTAY ABHI PHELE INTEGRATE KRLO
+#CHANGES K LIYAY LMK WHAT SUGGESTIONS YOU GUYS HAVE YA COLOR SCHEME KO AUR BLEND KRNA CHAHTAY ABHI PHELE INTEGRATE KRLO - its lovely bbg
 import tkinter as tk
 from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
 import os
 
+#Libraries needed for detector
+import numpy as np
+import tensorflow as tf
+import cv2
+from tensorflow.keras.models import load_model
+
+
+#Loading model
+MODEL = load_model("lsb_mobilenetv2_model.h5")
+
+def preprocess_image(imgPath): #Preproccesses image like model input requires
+    img = Image.open(imgPath).convert("RGB")
+    img = img.resize((224,224))
+    arr = np.array(img) / 255.0     # scale image
+    return np.expand_dims(arr, axis=0)
+
 def stegDetect(imgPath):
-    return "No hidden data detected"    #idhar ml wala code adjust krlo ya call fucntion whatever
+    try:
+        img = preprocess_image(imgPath)
+        pred = MODEL.predict(img)[0][0]   #idhar ml wala code adjust krlo ya call fucntion whatever - yelo
+
+        if pred > 0.5:
+            return f"⚠ Steganography Detected (Confidence: {pred:.2f})"
+        else:
+            return f"Clean Image (Confidence: {1-pred:.2f})"
+
+    except Exception as e:
+        return f"Detection Error: {e}"
 
 def uploadImage():
     global imgPath, imgLabelTk, imgName, imgType
@@ -20,6 +46,9 @@ def uploadImage():
     imgLabelTk = ImageTk.PhotoImage(img)
     imgLabel.config(image=imgLabelTk)
     imgLabel.image = imgLabelTk
+
+
+
 
 def detectImage():
     if imgPath is None:
@@ -61,7 +90,7 @@ def rightCon(R):
 
     tB.place(relx=0.5, rely=0.25, anchor="n")
     tB = tk.Text(rFrame, width=40, height=12, font=("Consolas",12), bg="#d2b48c", fg="#3b2f2f", insertbackground="black",
-    relief="flat", bd=0)  #text adjust  to avoid chipa
+    relief="flat", bd=0)  #text adjust  to avoid chipa - whats chipa
     tB.place(relx=0.5, rely=0.25, anchor="n")  #oper space
     tB.config(padx=10, pady=10)  
 
