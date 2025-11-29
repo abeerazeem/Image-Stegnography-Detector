@@ -36,9 +36,9 @@ def stegDetect(imgPath):
         pred = MODEL.predict(img)[0][0]   #idhar ml wala code adjust krlo ya call fucntion whatever - yelo
 
         if pred > 0.5:
-            return f"⚠ Steganography Detected (Confidence: {pred:.2f})"
+            return "Clean"
         else:
-            return f"Clean Image (Confidence: {1-pred:.2f})"
+            return "⚠ Steganography Detected"
 
     except Exception as e:
         return f"Detection Error: {e}"
@@ -61,10 +61,10 @@ def uploadImage():
 
 
 def detectImage():
+    global imgPath
     if imgPath is None:
       msgbox.showwarning("Please upload an image first")
       return
-    
     res = stegDetect(imgPath)
     tB.config(state="normal")   #before u think wth is tb it is text box output wala
     tB.delete("1.0", tk.END)
