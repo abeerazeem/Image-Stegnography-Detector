@@ -12,7 +12,7 @@ import cv2
 from tensorflow.keras.models import load_model
 
 
-MODEL_URL = "https://drive.google.com/file/d/1VzU2u0_d8sJLdEOGZ8BtAXcJTA1ZJICx/view?usp=sharing"
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1VzU2u0_d8sJLdEOGZ8BtAXcJTA1ZJICx"
 MODEL_PATH = "lsb_mobilenetv2_model.h5"
 
 # Download model if not exists
