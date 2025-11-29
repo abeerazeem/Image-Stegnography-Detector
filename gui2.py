@@ -33,7 +33,7 @@ def uploadImage():
     if p == "" or p is None: 
      return
     j = p
-    im = Image.open(i)
+    im = Image.open(j)
     im = im.resize((450,300))
     k = ImageTk.PhotoImage(im)
     imgLabel["image"] = k
@@ -99,3 +99,4 @@ def main():
  setupGUI()
 
 main()
+
