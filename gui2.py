@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 import os
 
 def stegDetector(img): 
-    return "No hidden data detected"
+  return "No hidden data detected"
 
 def heading(c, text, canvas_width, y):
     fnt = ("Segoe UI", 28, "bold")
@@ -28,24 +28,24 @@ def button(p, txt, c1, c2, cmd):
     return b
 
 def uploadImage():
-    global j, k
+    global i, k
     p = filedialog.askopenfilename(filetypes=[("Images","*.png *.jpg *.jpeg *.bmp")])
-    if p == "" or p is None: 
-     return
-    j = p
-    im = Image.open(j)
+    if not p:
+        return
+    i = p
+    im = Image.open(i)
     im = im.resize((450,300))
     k = ImageTk.PhotoImage(im)
-    imgLabel["image"] = k
+    imgLabel.config(image=k)
     imgLabel.image = k
-    output("📁 Selected: " + os.path.basename(j))
+    output("📁 Selected: " + os.path.basename(i))
 
 def detectImage():
     if i is None:
         msgbox.showwarning("Please upload an image first")
-    else:
-        res = stegDetector(i)
-        output("🔎 Result:\n" + res, True)
+        return
+    res = stegDetector(i)
+    output("🔎 Result:\n" + res, True)
 
 def output(txt, resize=False):
     outBox.config(state="normal")
@@ -53,16 +53,13 @@ def output(txt, resize=False):
     outBox.insert(tk.END, txt)
     if resize:
         l = txt.count("\n")+1
-        if l < 3:
-         outBox["height"] = 3
-        elif l > 6:
-            outBox["height"] = 6
-        else:
-            outBox["height"] = l
+        if l < 3: outBox["height"] = 3
+        elif l > 6: outBox["height"] = 6
+        else: outBox["height"] = l
     outBox.config(state="disabled")
 
 def setupGUI():
-    global i, imgLabel, outBox, upButton, detectButton, tki
+    global i, imgLabel, outBox, upButton, detectButton, k
     i = None
     r = tk.Tk()
     r.title("Stegnography Detector")
@@ -84,9 +81,9 @@ def setupGUI():
     upButton.grid(row=0, column=0, padx=10)
     detectButton = button(bFrame, "🔎 Run Detection", "#60a5fa", "#3b82f6", detectImage)
     detectButton.grid(row=0, column=1, padx=10)
-
     tk.Label(r, text="Detection Output", fg="#00eaff", bg="#0f111b", font=("Segoe UI",14,"bold")).pack(pady=(10,2))
     
+    global outBox
     outBox = tk.Text(r, width=70, height=2, font=("Consolas",12), bg="#111827", fg="#7dd3fc",
     insertbackground="white", relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
     outBox.pack(pady=(0,15))
@@ -96,7 +93,6 @@ def setupGUI():
     r.mainloop()
 
 def main():
- setupGUI()
+    setupGUI()
 
 main()
-
