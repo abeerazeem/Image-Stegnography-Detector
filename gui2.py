@@ -35,9 +35,9 @@ def stegDetector(imgPath):
         pred = MODEL.predict(img)[0][0]   #idhar ml wala code adjust krlo ya call fucntion whatever - yelo
 
         if pred > 0.5:
-            return f"⚠ Steganography Detected (Confidence: {pred:.2f})"
+            return "Clean"
         else:
-            return f"Clean Image (Confidence: {1-pred:.2f})"
+            return "⚠ Steganography Detected"
 
     except Exception as e:
         return f"Detection Error: {e}"
@@ -77,11 +77,16 @@ def uploadImage():
     output("📁 Selected: " + os.path.basename(i))
 
 def detectImage():
+    global i
+    print("BUTTON CLICKED", flush=True)
+
     if i is None:
         msgbox.showwarning("Please upload an image first")
         return
+
     res = stegDetector(i)
     output("🔎 Result:\n" + res, True)
+
 
 def output(txt, resize=False):
     outBox.config(state="normal")
