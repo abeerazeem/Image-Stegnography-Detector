@@ -3,8 +3,44 @@ from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
 import os
 
-def stegDetector(img): 
-  return "No hidden data detected"
+#Libraries needed for detector
+import gdown
+import numpy as np
+import tensorflow as tf
+import cv2
+from tensorflow.keras.models import load_model
+
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1VzU2u0_d8sJLdEOGZ8BtAXcJTA1ZJICx"
+MODEL_PATH = "lsb_mobilenetv2_model.h5"
+
+# Download model if not exists
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model from Google Drive...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+
+#Loading model
+MODEL = load_model(MODEL_PATH)
+
+def preprocess_image(imgPath): #Preproccesses image like model input requires
+    img = Image.open(imgPath).convert("RGB")
+    img = img.resize((224,224))
+    arr = np.array(img) / 255.0     # scale image
+    return np.expand_dims(arr, axis=0)
+
+def stegDetector(imgPath):
+    try:
+        img = preprocess_image(imgPath)
+        pred = MODEL.predict(img)[0][0]   #idhar ml wala code adjust krlo ya call fucntion whatever - yelo
+
+        if pred > 0.5:
+            return f"⚠ Steganography Detected (Confidence: {pred:.2f})"
+        else:
+            return f"Clean Image (Confidence: {1-pred:.2f})"
+
+    except Exception as e:
+        return f"Detection Error: {e}"
 
 def heading(c, text, canvas_width, y):
     fnt = ("Segoe UI", 28, "bold")
@@ -62,13 +98,13 @@ def setupGUI():
     global i, imgLabel, outBox, upButton, detectButton, k
     i = None
     r = tk.Tk()
-    r.title("Stegnography Detector")
+    r.title("LSB Stegnography Detector")
     r.geometry("850x650")
     r["bg"] = "#0f111b"
 
     head = tk.Canvas(r, width=850, height=80, bg="#0f111b", highlightthickness=0)
     head.pack()
-    heading(head, "Stegnography Detector", 850, 20)
+    heading(head, "LSB Stegnography Detector", 850, 20)
 
     fImg = tk.Frame(r, bg="#1c1f2b", bd=2, highlightthickness=4, highlightbackground="#00eaff")
     fImg.pack(pady=10)
