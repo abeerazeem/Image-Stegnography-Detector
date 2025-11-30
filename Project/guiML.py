@@ -8,8 +8,6 @@ import embedder
 if not detector.load_detector():
     msgbox.showwarning("Warning", "Model could not be loaded.\nDetection may not work.")
 
-
-# ---------------- GUI Helper Functions ---------------- #
 def heading(c, text, canvas_width, y, colors=["#00f6ff","#8b5cf6"]):
     fnt = ("Consolas", 28, "bold")
     totalChars = len(text)
@@ -25,17 +23,17 @@ def heading(c, text, canvas_width, y, colors=["#00f6ff","#8b5cf6"]):
 
 def button(p, txt, c1, c2, cmd):
     b = tk.Label(p, text=txt, bg=c1, fg="black", font=("Segoe UI",13,"bold"),
-                 width=18, pady=8, cursor="hand2", relief="flat", bd=0)
+    width=18, pady=8, cursor="hand2", relief="flat", bd=0)
     b.bind("<Enter>", lambda e: b.config(bg=c2))
     b.bind("<Leave>", lambda e: b.config(bg=c1))
     b.bind("<Button-1>", lambda e: cmd())
     return b
 
-# ---------------- Detector Tab ---------------- #
 def uploadImage():
     global i, k, imgLabel
     p = filedialog.askopenfilename(filetypes=[("Images","*.png *.jpg *.jpeg *.bmp")])
-    if not p: return
+    if not p: 
+     return
     i = p
     img = Image.open(i).resize((450,300))
     k = ImageTk.PhotoImage(img)
@@ -46,7 +44,7 @@ def uploadImage():
 def detectImage():
     global i
     if i is None:
-        msgbox.showwarning("Warning", "Please upload an image first")
+        msgbox.showwarning("Please upload an image first")
         return
     res = detector.detect_steg(i)
     output("🔎 Result:\n" + res, True)
@@ -55,12 +53,12 @@ def output(txt, resize=False):
     outBox.config(state="normal")
     outBox.delete("1.0", tk.END)
     outBox.insert(tk.END, txt)
+
     if resize:
-        l = txt.count("\n")+1
-        outBox["height"] = min(max(l,3),6)
+     l = txt.count("\n")+1
+     outBox["height"] = min(max(l,3),6)
     outBox.config(state="disabled")
 
-# ---------------- Etab (Embed Tab) ---------------- #
 def openEtab():
     etab = tk.Toplevel()
     etab.title("LSB Stegnography Embedder")
@@ -72,7 +70,7 @@ def openEtab():
     heading(header, "LSB Stegnography Embedder", 850, 20)
 
     fImg = tk.Frame(etab, bg="#1c1f2b", bd=2, highlightthickness=4, highlightbackground="#00eaff")
-    fImg.pack(pady=(10,15))  # Increased spacing between image container and buttons
+    fImg.pack(pady=(10,15))  
     embedImgLabel = tk.Label(fImg, bg="#1c1f2b")
     embedImgLabel.pack(padx=10, pady=10)
 
@@ -80,15 +78,15 @@ def openEtab():
     bFrame.pack(pady=(5,10))
 
     embedOut = tk.Text(etab, width=65, height=2, font=("Consolas",12),
-                       bg="#111827", fg="#7dd3fc", insertbackground="white",
-                       relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
+    bg="#111827", fg="#7dd3fc", insertbackground="white", relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
     embedOut.pack(pady=(15,15))
     embedOut.insert(tk.END, "Upload an image to embed...\n")
     embedOut.config(state="disabled")
 
     def uploadEmbed():
         p = filedialog.askopenfilename(filetypes=[("Images","*.png *.jpg *.jpeg *.bmp")])
-        if not p: return
+        if not p:
+         return
         etab.imgPath = p
         img = Image.open(p).resize((450,300))
         etab.tkImg = ImageTk.PhotoImage(img)
@@ -100,18 +98,18 @@ def openEtab():
 
     def downloadEmb():
         if not hasattr(etab, "imgPath"):
-            msgbox.showwarning("Warning", "Upload an image first!")
-            return
-        save_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG Image","*.png")])
-        if not save_path: return
+          msgbox.showwarning("Upload an image first!")
+          return
+        sp = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG Image","*.png")])
+        if not sp: 
+         return
         lsb_img = embedder.embed_lsb(etab.imgPath, payload_ratio=0.5)
-        lsb_img.save(save_path)
-        msgbox.showinfo("Success", f"Image saved at:\n{save_path}")
+        lsb_img.save(sp)
+        msgbox.showinfo("Success", f"Image saved at:\n{sp}")
 
     button(bFrame, "📤 Upload Image", "#4ade80", "#22c55e", uploadEmbed).grid(row=0, column=0, padx=10)
     button(bFrame, "💾 Download", "#ec4899", "#db2777", downloadEmb).grid(row=0, column=1, padx=10)
 
-# ---------------- Main GUI ---------------- #
 def setupGUI():
     
     global i, imgLabel, outBox
@@ -126,7 +124,7 @@ def setupGUI():
     heading(header, "LSB Stegnography Detector", 850, 20)
 
     fImg = tk.Frame(r, bg="#1c1f2b", bd=2, highlightthickness=4, highlightbackground="#00eaff")
-    fImg.pack(pady=(10,15))  # Increased spacing
+    fImg.pack(pady=(10,12)) 
     imgLabel = tk.Label(fImg, bg="#1c1f2b")
     imgLabel.pack(padx=10, pady=10)
 
@@ -137,7 +135,7 @@ def setupGUI():
     button(bFrame, "📝 Embedder", "#ec4899", "#db2777", openEtab).grid(row=0, column=2, padx=10)
 
     outBox = tk.Text(r, width=65, height=2, font=("Consolas",12), bg="#111827", fg="#7dd3fc",
-                     insertbackground="white", relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
+    insertbackground="white", relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
     outBox.pack(pady=(15,15))
     outBox.insert(tk.END, "Upload an image to start detection..\n")
     outBox.config(state="disabled")
@@ -145,6 +143,5 @@ def setupGUI():
     r.mainloop()
 
 def main():
-    setupGUI()
-
+  setupGUI()
 main()
