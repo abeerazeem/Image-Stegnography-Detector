@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
 import detector
 import os
+import embedder
 
 if not detector.load_detector():
     msgbox.showwarning("Warning", "Model could not be loaded.\nDetection may not work.")
@@ -103,8 +104,8 @@ def openEtab():
             return
         save_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG Image","*.png")])
         if not save_path: return
-        img = Image.open(etab.imgPath)
-        img.save(save_path)
+        lsb_img = embedder.embed_lsb(etab.imgPath, payload_ratio=0.5)
+        lsb_img.save(save_path)
         msgbox.showinfo("Success", f"Image saved at:\n{save_path}")
 
     button(bFrame, "📤 Upload Image", "#4ade80", "#22c55e", uploadEmbed).grid(row=0, column=0, padx=10)
