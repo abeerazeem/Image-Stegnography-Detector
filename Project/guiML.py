@@ -134,7 +134,7 @@ def setupGUI():
     bFrame.pack(pady=(5,15))
     button(bFrame, "📤 Upload Image", "#4ade80", "#22c55e", uploadImage).grid(row=0, column=0, padx=10)
     button(bFrame, "🔎 Run Detection", "#60a5fa", "#3b82f6", detectImage).grid(row=0, column=1, padx=10)
-    button(bFrame, "📝 Etab", "#ec4899", "#db2777", openEtab).grid(row=0, column=2, padx=10)
+    button(bFrame, "📝 Embedder", "#ec4899", "#db2777", openEtab).grid(row=0, column=2, padx=10)
 
     outBox = tk.Text(r, width=65, height=2, font=("Consolas",12), bg="#111827", fg="#7dd3fc",
                      insertbackground="white", relief="flat", bd=3, highlightthickness=2, highlightbackground="#00eaff", wrap=tk.WORD)
