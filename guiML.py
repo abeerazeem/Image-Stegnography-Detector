@@ -1,47 +1,12 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
-import numpy as np
+import detector
 import os
-import gdown
-import tensorflow as tf
-from tensorflow.keras.models import load_model
 
-# ---------------- Model Setup ---------------- #
-MODEL_URL = "https://drive.google.com/uc?id=1VzU2u0_d8sJLdEOGZ8BtAXcJTA1ZJICx"
-MODEL_PATH = "lsb_mobilenetv2_model.h5"
+if not detector.load_detector():
+    msgbox.showwarning("Warning", "Model could not be loaded.\nDetection may not work.")
 
-# Download model if not exists
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Google Drive...")
-    gdown.download(MODEL_URL, MODEL_PATH, quiet=False, fuzzy=True)
-    print("Model downloaded.")
-
-# Load the model safely
-MODEL = None
-try:
-    MODEL = load_model(MODEL_PATH)
-    print("Model loaded successfully.")
-except Exception as e:
-    print(f"Failed to load model: {e}")
-    msgbox.showwarning("Warning", f"Model could not be loaded:\n{e}\nDetection will not work.")
-
-# ---------------- Detector Functions ---------------- #
-def preprocessImage(imgPath):
-    img = Image.open(imgPath).convert("RGB")
-    img = img.resize((224,224))
-    arr = np.array(img) / 255.0
-    return np.expand_dims(arr, axis=0)
-
-def stegDetector(imgPath):
-    if MODEL is None:
-        return "⚠ Model not loaded!"
-    try:
-        img = preprocessImage(imgPath)
-        pred = MODEL.predict(img)[0][0]
-        return "Clean" if pred > 0.5 else "⚠ Steganography Detected"
-    except Exception as e:
-        return f"Detection Error: {e}"
 
 # ---------------- GUI Helper Functions ---------------- #
 def heading(c, text, canvas_width, y, colors=["#00f6ff","#8b5cf6"]):
@@ -82,7 +47,7 @@ def detectImage():
     if i is None:
         msgbox.showwarning("Warning", "Please upload an image first")
         return
-    res = stegDetector(i)
+    res = detector.detect_steg(i)
     output("🔎 Result:\n" + res, True)
 
 def output(txt, resize=False):
@@ -147,6 +112,7 @@ def openEtab():
 
 # ---------------- Main GUI ---------------- #
 def setupGUI():
+    
     global i, imgLabel, outBox
     i = None
     r = tk.Tk()
