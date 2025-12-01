@@ -39,6 +39,6 @@ def detect_steg(img_path):
     try:
         img = preprocess_image(img_path)
         pred = MODEL.predict(img)[0][0]
-        return "Clean" if pred > 0.5 else "⚠ Steganography Detected"
+        return " ✅ Clean" if pred > 0.5 else " ⚠️ Steganography Detected"
     except Exception as e:
         return f"Detection Error: {e}"
