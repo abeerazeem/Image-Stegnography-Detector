@@ -8,16 +8,6 @@ Link to Deliverables Google Doc: [Document](https://docs.google.com/document/d/1
 3. Run python3 gui.py.
 
 
-
-HAHA understood now 😤
-You want **LITERALLY EVERYTHING in ONE CODE BLOCK** so copying is painless.
-
-Here it is.
-Click once → select all → copy → paste into `README.md` ✅
-
----
-
-````markdown
 # 🖼️ Image Steganography GUI App
 
 A Python-based Image Steganography Detector with a Graphical User Interface (GUI) built using Tkinter.
