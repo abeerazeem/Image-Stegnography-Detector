@@ -34,7 +34,7 @@ def detectImage():
       msgbox.showwarning("Please upload an image first")
       return
     res = stegDetect(imgPath)
-    tB.config(state="normal")   #before u think wth is tb it is text box output wala
+    tB.config(state="normal")
     tB.delete("1.0", tk.END)
     tB.tag_configure("center", justify='center', spacing3=10)
     tB.tag_configure("bold", font=("Consolas", 12, "bold"), justify='center', spacing3=2)
@@ -69,7 +69,7 @@ def rightCon(R):
     tB.place(relx=0.5, rely=0.25, anchor="n")
     tB = tk.Text(rFrame, width=40, height=12, font=("Consolas",12), bg="#d2b48c", fg="#3b2f2f", insertbackground="black",
     relief="flat", bd=0)  
-    tB.place(relx=0.5, rely=0.25, anchor="n")  #oper space
+    tB.place(relx=0.5, rely=0.25, anchor="n") 
     tB.config(padx=10, pady=10)  
 
     tB.insert(tk.END, "Upload an image to start detection..\n")
@@ -89,4 +89,3 @@ def main():
     r.mainloop()
 
 main()
-
