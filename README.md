@@ -2,13 +2,7 @@
 
 Link to Deliverables Google Doc: [Document](https://docs.google.com/document/d/11OKz_lVjRuMrw9Qc7U9LZ848xebCweiNjc6HGBN00nA/edit?usp=sharing)
 
-## To run gui:
-1. Download Project folder.
-2. Run pip install -r requirements.txt on terminal.
-3. Run python3 gui.py.
-
-
-# 🖼️ Image Steganography GUI App
+# 🖼️ LSB Image Steganography Detector App
 
 A Python-based Image Steganography Detector with a Graphical User Interface (GUI) built using Tkinter.
 
@@ -152,17 +146,17 @@ This project works on:
 ## 🚀 Quick Start (All-in-One)
 
 ```bash
-git clone <your_repo_link>
+git clone <https://github.com/abeerazeem/Image-Stegnography-Detector>
 cd project-folder
 python -m venv venv
 source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-python gui.py
+python gui.py #On Linux: python3 gui.py
 ```
 
 ---
 
-If you experience issues, create a GitHub Issue or contact the maintainer.
+If you experience issues, create a GitHub Issue or contact the contributers.
 ````
 
 
