@@ -1,4 +1,3 @@
-#CHANGES K LIYAY LMK WHAT SUGGESTIONS YOU GUYS HAVE YA COLOR SCHEME KO AUR BLEND KRNA CHAHTAY ABHI PHELE INTEGRATE KRLO - its lovely bbg
 import tkinter as tk
 from tkinter import filedialog, messagebox as msgbox
 from PIL import Image, ImageTk
@@ -69,7 +68,7 @@ def rightCon(R):
 
     tB.place(relx=0.5, rely=0.25, anchor="n")
     tB = tk.Text(rFrame, width=40, height=12, font=("Consolas",12), bg="#d2b48c", fg="#3b2f2f", insertbackground="black",
-    relief="flat", bd=0)  #text adjust  to avoid chipa - whats chipa
+    relief="flat", bd=0)  
     tB.place(relx=0.5, rely=0.25, anchor="n")  #oper space
     tB.config(padx=10, pady=10)  
 
