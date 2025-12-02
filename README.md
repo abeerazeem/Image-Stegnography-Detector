@@ -146,7 +146,7 @@ This project works on:
 ## 🚀 Quick Start (All-in-One)
 
 ```bash
-git clone <https://github.com/abeerazeem/Image-Stegnography-Detector>
+git clone https://github.com/abeerazeem/Image-Stegnography-Detector
 cd project-folder
 python -m venv venv
 source venv/bin/activate      # On Windows: venv\Scripts\activate
@@ -157,7 +157,7 @@ python gui.py #On Linux: python3 gui.py
 ---
 
 If you experience issues, create a GitHub Issue or contact the contributers.
-````
+
 
 
 
