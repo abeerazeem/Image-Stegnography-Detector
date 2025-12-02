@@ -37,8 +37,8 @@ def detectImage():
     tB.config(state="normal")   #before u think wth is tb it is text box output wala
     tB.delete("1.0", tk.END)
     tB.tag_configure("center", justify='center', spacing3=10)
-    tB.tag_configure("bold", font=("Consolas", 12, "bold"), justify='center', spacing3=10)
-    tB.tag_configure("heading", font=("Segoe UI", 14, "bold"), justify='center', spacing3=10)
+    tB.tag_configure("bold", font=("Consolas", 12, "bold"), justify='center', spacing3=2)
+    tB.tag_configure("heading", font=("Segoe UI", 14, "bold"), justify='center', spacing3=3)  //reduced spacing so content doesnt overflow
     tB.insert(tk.END, "\n")
     tB.insert(tk.END, "Detection Output\n\n", "heading")
     tB.insert(tk.END, f"Image Name: {imgName}\n", "center")
