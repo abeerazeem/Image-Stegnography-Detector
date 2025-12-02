@@ -13,7 +13,7 @@ A Python-based Image Steganography Detector with a Graphical User Interface (GUI
 Ensure your directory contains the following files:
 
 ```
-project-folder/
+Project/
 │
 ├── gui.py
 ├── detector.py
@@ -147,7 +147,7 @@ This project works on:
 
 ```bash
 git clone https://github.com/abeerazeem/Image-Stegnography-Detector
-cd project-folder
+cd Project
 python -m venv venv
 source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
