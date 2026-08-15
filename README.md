@@ -1,4 +1,4 @@
-# LSB Image StegnographyDetector App
+# LSB Image Stegnography Detector App
 
 A Python-based Image Steganography Detector with a Graphical User Interface (GUI) built using Tkinter.
 
